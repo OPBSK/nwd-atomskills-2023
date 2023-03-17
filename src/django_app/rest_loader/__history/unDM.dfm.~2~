@@ -1,0 +1,46 @@
+object DataModule1: TDataModule1
+  OldCreateOrder = False
+  Height = 475
+  Width = 670
+  object AS2033Connection: TADOConnection
+    LoginPrompt = False
+    Provider = 'SQLOLEDB.1'
+    Left = 40
+    Top = 8
+  end
+  object spTest_ins: TADOStoredProc
+    Connection = AS2033Connection
+    ProcedureName = '_rest_competention_ins;1'
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = Null
+      end
+      item
+        Name = '@id'
+        Attributes = [paNullable]
+        DataType = ftInteger
+        Precision = 10
+        Value = Null
+      end
+      item
+        Name = '@title'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 500
+        Value = Null
+      end
+      item
+        Name = '@shortTitle'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 10
+        Value = Null
+      end>
+    Left = 152
+    Top = 16
+  end
+end

@@ -1,0 +1,1 @@
+rest_loader.exe -login django_user -password django_user -rest https://reqres.in -key qwerty -host HOME-PC\SQLEXPRESS
