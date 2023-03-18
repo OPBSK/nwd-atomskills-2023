@@ -225,8 +225,8 @@ class Messages(models.Model):
 class Orders(models.Model):
     item_id = models.CharField(
         max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
-    label = models.ForeignKey(
-        Machines, models.DO_NOTHING, db_column='label', blank=True, null=True)
+    label = models.CharField(
+        max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
     quantity = models.IntegerField(blank=True, null=True)
     priority = models.IntegerField(blank=True, null=True)
 
@@ -389,3 +389,23 @@ class FreeMachines(models.Model):
     class Meta:
         managed = False  # Created from a view. Don't remove.
         db_table = '_free_machines'
+
+
+class ReleasedProduction(models.Model):
+    request_id = models.IntegerField(primary_key=True)
+    number = models.CharField(max_length=50, blank=True, null=True)
+    date = models.DateTimeField(blank=True, null=True)
+    # Field name made lowercase.
+    releasedate = models.DateTimeField(
+        db_column='releaseDate', blank=True, null=True)
+    item_id = models.IntegerField(blank=True, null=True)
+    quantity = models.IntegerField(blank=True, null=True)
+    # Field name made lowercase.
+    quantityexec = models.IntegerField(
+        db_column='quantityExec', blank=True, null=True)
+    code = models.CharField(max_length=50, blank=True, null=True)
+    caption = models.CharField(max_length=500, blank=True, null=True)
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = '_released_production'

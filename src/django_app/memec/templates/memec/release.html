@@ -1,0 +1,89 @@
+{% extends 'memec/base.html' %}
+{% load static %}
+{% block customcss %}
+{% endblock customcss %}
+
+{% block content %}
+<!--Main layout-->
+<main style="margin-top: 58px">
+    <div class="container pt-4">
+        <!-- Section: Main chart -->
+        <section class="mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive-sm">
+                        <table class="table table-striped
+                        table-hover	
+                        table-borderless
+                        align-middle">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Номер заказа</th>
+                                    <th class="text-center">Дата</th>
+                                    <th class="text-center">Дата выпуска</th>
+                                    <th class="text-center">Количество</th>
+                                    <th class="text-center">Количество выполнено</th>
+                                    <th class="text-center">Обозначение</th>
+                                    <th class="text-center">Наименование</th>
+                                    <th class="text-center"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                {% for item in release %}
+                                <tr>
+                                    <td class="text-center">{{item.number}}</td>
+                                    <td class="text-center">{{item.date|date:'d.m.Y'}}</td>
+                                    <td class="text-center">{{item.releasedate|date:'d.m.Y'}}</td>
+                                    <td class="text-center">{{item.quantity}}</td>
+                                    <td class="text-center">{{item.quantityexec}}</td>
+                                    <td class="text-center">{{item.code}}</td>
+                                    <td class="text-center">{{item.caption}}</td>
+                                    <td class="text-center">
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                                                data-bs-toggle="dropdown" aria-expanded="false"
+                                                data-bs-auto-close="outside">
+                                                Сдать продукцию
+                                            </button>
+                                            <form class="dropdown-menu p-4" method="POST" action="">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="item_id" value="{{item.item_id}}">
+                                                <input type="hidden" name="request_id" value="{{item.request_id}}">
+                                                <div class="mb-3">
+                                                    <label for="count" class="form-label">Количество сдаваемого</label>
+                                                    <input required type="number" min="1" max="100000"
+                                                        class="form-control" name="count" id="count">
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Сдать</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="pagination">
+                            <span class="step-links">
+                                {% if page_obj.has_previous %}
+                                <a href="?page=1">&laquo; Первый</a>
+                                <a href="?page={{ page_obj.previous_page_number }}">Назад</a>
+                                {% endif %}
+
+                                <span class="current">
+                                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                                </span>
+
+                                {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">Вперед</a>
+                                <a href="?page={{ page_obj.paginator.num_pages }}">Последний &raquo;</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+</main>
+<!--Main layout-->
+{% endblock content %}
