@@ -7,8 +7,6 @@ import atexit
 
 bot = None
 
-# asdasd
-
 
 @receiver(request_started)
 def run_bot(sender, **kwargs):

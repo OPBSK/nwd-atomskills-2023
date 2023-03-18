@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-10s=@#t-s^zr#%^47^^3l)m**c3$e25h-t48fl1k*q)-+&uh!u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -77,7 +77,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'NAME': 'AS2033',
-        'HOST': 'HOME-PC\SQLEXPRESS',
+        'HOST': '0.0.0.0\SQLEXPRESS',
         'USER': 'django_user',
         'PASSWORD': 'django_user',
         'PORT': '1433',
