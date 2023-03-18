@@ -1,5 +1,5 @@
 from django.urls import path
-from memec.views import main, reports, alerts, plan
+from memec.views import main, reports, alerts, plan, release
 import subprocess
 from pathlib import Path
 
@@ -12,6 +12,7 @@ urlpatterns = [
          main.RequestApprove, name="request_approve"),
     path('requests/<int:request_id>',
          main.RequestView.as_view(), name="request_view"),
+    path('release/', release.ReleaseListView.as_view(), name="release_production"),
 
     path('reports/', reports.ReportListView.as_view(), name="reports"),
     path('reports/view/', reports.ReportView.as_view(), name="report_view"),

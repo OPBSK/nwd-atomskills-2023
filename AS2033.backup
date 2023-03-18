@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Devart (www.devart.com), export template file-->
+<!-- Modifying this generated file will probably render it invalid -->
+<ExportTemplate FormatVersion="1">
+  <LastSuccessfullDate>0001-01-01T00:00:00</LastSuccessfullDate>
+  <ConnectionModel>
+    <PropertyValue Name="OverrideMFA">false</PropertyValue>
+    <PropertyValue Name="Database">aa8afe9c-7d62-4564-b477-c12e62e0f440</PropertyValue>
+    <PropertyValue Name="ConnectionString" xml:space="preserve">Data Source=HOME-PC\SQLEXPRESS;Initial Catalog=AS2033;Integrated Security=False;User ID=masterrus417</PropertyValue>
+    <PropertyValue Name="ExecutionTimeout">0</PropertyValue>
+  </ConnectionModel>
+  <Database>AS2033</Database>
+  <OutputDirectory>D:\django\nwd-atomskills-2023\src\django_app</OutputDirectory>
+  <BaseFileName>deploy</BaseFileName>
+  <Mode>All</Mode>
+  <AppendTimestamp>False</AppendTimestamp>
+  <MaxDays>0</MaxDays>
+  <MaxFilesCount>0</MaxFilesCount>
+  <Compression />
+  <DatabaseObjects>
+    <DatabaseObjectType ObjectType="Table" />
+    <DatabaseObjectType ObjectType="View" />
+    <DatabaseObjectType ObjectType="Programmability" />
+    <DatabaseObjectType ObjectType="Procedure" />
+    <DatabaseObjectType ObjectType="Function" />
+    <DatabaseObjectType ObjectType="DdlTrigger" />
+    <DatabaseObjectType ObjectType="Sequence" />
+    <DatabaseObjectType ObjectType="Assembly" />
+    <DatabaseObjectType ObjectType="Rule" />
+    <DatabaseObjectType ObjectType="Default" />
+    <DatabaseObjectType ObjectType="UserType" />
+    <DatabaseObjectType ObjectType="UserDataType" />
+    <DatabaseObjectType ObjectType="UserTableType" />
+    <DatabaseObjectType ObjectType="ClrType" />
+    <DatabaseObjectType ObjectType="XmlSchemaCollection" />
+  </DatabaseObjects>
+  <Options>
+    <PropertyValue Name="ScriptCreateDatabase">false</PropertyValue>
+    <PropertyValue Name="QuoteObjectNames">false</PropertyValue>
+    <PropertyValue Name="GenerateComments">true</PropertyValue>
+    <PropertyValue Name="SelectWithNoFromClauseComment">true</PropertyValue>
+    <PropertyValue Name="DisableForeignKeys">false</PropertyValue>
+    <PropertyValue Name="DropKeys">false</PropertyValue>
+    <PropertyValue Name="GenerateScriptHeader">true</PropertyValue>
+    <PropertyValue Name="UseCreateOrAlter">true</PropertyValue>
+    <PropertyValue Name="ScriptUseDatabase">true</PropertyValue>
+    <PropertyValue Name="CheckObjectExistence">false</PropertyValue>
+    <PropertyValue Name="UseSubSchemaNamePrefix">true</PropertyValue>
+    <PropertyValue Name="ScriptCollations">false</PropertyValue>
+    <PropertyValue Name="ScriptAuthorization">false</PropertyValue>
+    <PropertyValue Name="ScriptExtendedProperties">true</PropertyValue>
+    <PropertyValue Name="ScriptStatistics">false</PropertyValue>
+    <PropertyValue Name="ScriptLogins">false</PropertyValue>
+    <PropertyValue Name="ScriptPermissions">false</PropertyValue>
+    <PropertyValue Name="ScriptDefaultConstraints">true</PropertyValue>
+    <PropertyValue Name="ScriptCheckConstraints">true</PropertyValue>
+    <PropertyValue Name="ScriptChangeTracking">false</PropertyValue>
+    <PropertyValue Name="ScriptDataCompression">false</PropertyValue>
+    <PropertyValue Name="ScriptDMLTriggers">false</PropertyValue>
+    <PropertyValue Name="ScriptForeignKeys">true</PropertyValue>
+    <PropertyValue Name="ScriptFullTextSearch">false</PropertyValue>
+    <PropertyValue Name="ScriptIndexes">true</PropertyValue>
+    <PropertyValue Name="ScriptPrimaryKeys">true</PropertyValue>
+    <PropertyValue Name="ScriptUniqueKeys">true</PropertyValue>
+    <PropertyValue Name="DecryptEncryptedObjects">false</PropertyValue>
+    <PropertyValue Name="EnforceColumnList">false</PropertyValue>
+    <PropertyValue Name="LogFileName" xml:space="preserve">C:\Users\ASADMIN\Documents\Devart\dbForge Studio for SQL Server\ScriptGeneration.log</PropertyValue>
+    <PropertyValue Name="WriteLog">false</PropertyValue>
+    <PropertyValue Name="ErrorHandlingMode">2</PropertyValue>
+  </Options>
+</ExportTemplate>

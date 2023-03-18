@@ -7,6 +7,7 @@
                 {% url 'reports' as reports %}
                 {% url 'alerts' as alerts %}
                 {% url 'report_view' as report_view %}
+                {% url 'release_production' as release %}
                 <a href="{% url 'main' %}"
                     class="list-group-item list-group-item-action {% if main == request.path %}active{% endif %} mb-2"
                     aria-current="true">
@@ -15,6 +16,16 @@
                             list_alt
                         </span>
                         <span>Заказы</span>
+                    </div>
+                </a>
+                <a href="{% url 'release_production' %}"
+                    class="list-group-item list-group-item-action {% if release == request.path %}active{% endif %} mb-2"
+                    aria-current="true">
+                    <div class="d-flex">
+                        <span class="material-icons-outlined me-2">
+                            inventory_2
+                        </span>
+                        <span>Сдача продукции</span>
                     </div>
                 </a>
                 <a href="{% url 'reports' %}"
@@ -59,7 +70,7 @@
         <!-- Container wrapper -->
         <div class="container-fluid">
             <!-- Brand -->
-            <a class="navbar-brand d-flex justify-content-center" href="#">
+            <a class="navbar-brand d-flex justify-content-center" href="{% url 'main' %}">
                 <i class="material-icons-outlined md-36">settings</i>
                 <div class="text-center">AUMANU</div>
             </a>
