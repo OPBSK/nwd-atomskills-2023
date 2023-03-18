@@ -23,12 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-10s=@#t-s^zr#%^47^^3l)m**c3$e25h-t48fl1k*q)-+&uh!u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
-
-USE_TERMINAL_COLORS = False
-
 
 # Application definition
 
@@ -80,15 +77,16 @@ DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'NAME': 'AS2033',
-        'HOST':'HOME-PC\SQLEXPRESS',
-        'USER':'django_user',
-        'PASSWORD':'django_user',
-        'PORT':'1433',
-        "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server", 
-        },
+        'HOST': 'HOME-PC\SQLEXPRESS',
+        'USER': 'django_user',
+        'PASSWORD': 'django_user',
+        'PORT': '1433',
+        "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server",
+                    },
     }
 }
 
+AUTH_PROFILE_MODULE = 'memec.UserProfile'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -125,6 +123,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR.joinpath('static')]
+# STATIC_ROOT = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

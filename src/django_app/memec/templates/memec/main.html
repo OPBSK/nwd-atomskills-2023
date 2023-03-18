@@ -1,0 +1,120 @@
+{% extends 'memec/base.html' %}
+{% load static %}
+{% block customcss %}
+<link href="{% static 'css/main.css' %}" rel="stylesheet">
+{% endblock customcss %}
+{% block content %}
+<!--Main layout-->
+<main style="margin-top: 58px">
+    <div class="container pt-4">
+        <!-- Section: Main chart -->
+        <section class="mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="btn-group btn-group-sm mb-2">
+                            <a href="{% url 'main' %}?state=new"
+                                class="btn btn-outline-dark {% if request.GET.state is None or request.GET.state == 'new' %}active{% endif %}"
+                                aria-current="page">Новые</a>
+                            <a href="{% url 'main' %}?state=production"
+                                class="btn btn-outline-dark {% if request.GET.state == 'production' %}active{% endif %}">В
+                                работе</a>
+                            <a href="{% url 'main' %}?state=executed"
+                                class="btn btn-outline-dark {% if request.GET.state == 'executed' %}active{% endif %}">Выполненые</a>
+                        </div>
+                        {% if request.GET.state is None or request.GET.state == 'new' %}
+                        <div class="btn-group btn-group-sm">
+                            <form method="POST" action="{% url 'request_auto' %}">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-primary" type="submit">Авто распределение
+                                    заказов</button>
+                            </form>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="table-responsive-sm">
+                        <table class="table table-striped
+                        table-hover	
+                        table-borderless
+                        align-middle">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Номер заказа</th>
+                                    <th class="text-center">Дата заказа</th>
+                                    <th class="text-center">Описание</th>
+                                    <th class="text-center">Дата выпуска</th>
+                                    <th class="text-center">Статус</th>
+                                    <th class="text-center">Заказчик</th>
+                                    <th class="text-center"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in requests %}
+                                <tr>
+                                    <td class="text-center">{{item.number}}</td>
+                                    <td class="text-center">{{item.date|date:'d.m.Y'}}</td>
+                                    <td class="text-center">{{item.description}}</td>
+                                    <td class="text-center">{{item.releasedate|date:'d.m.Y'}}</td>
+                                    <td class="text-center">{{item.state_caption}}
+                                        <br>
+                                        <small class="text-black-50">{{item.state_order}}</small>
+                                    </td>
+                                    <td class="text-center">
+                                        <div>{{item.contractor_caption}}</div>
+                                        <small class="text-black-50">ИНН: {{item.contractor_inn}}</small>
+                                    </td>
+                                    {% if request.GET.state is None or request.GET.state == 'new' %}
+                                    <td>
+                                        <div class="row">
+                                            <div class="col"><a href="{% url 'request_view' item.request_id %}"
+                                                    class="btn btn-primary btn-sm">Распределить</a></div>
+                                            <div class="col">
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                                                        data-bs-toggle="dropdown" aria-expanded="false"
+                                                        {% if item.state_order_int == 0 %} disabled {% endif %}
+                                                        data-bs-auto-close="outside">
+                                                        Утвердить
+                                                    </button>
+                                                    <form class="dropdown-menu p-2" method="POST"
+                                                        action="{% url 'request_approve' %}">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="request_id"
+                                                            value="{{item.request_id}}">
+                                                        <p class="text-center">Вы уверены, что хотите утвердить заказ?
+                                                        </p>
+                                                        <div class="d-flex justify-content-center">
+                                                            <button type="submit"
+                                                                class="btn btn-primary me-2">Да</button>
+                                                            <button type="button" class="btn btn-primary"
+                                                                onclick="$('.dropdown-toggle').dropdown('toggle')">Нет</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    {% endif %}
+                                    {% if request.GET.state == 'production' or request.GET.state == 'executed' %}
+                                    <td>
+                                        <div class="row">
+                                            <div class="col">
+                                                <a target=”_blank”
+                                                    href="{% if item.report_id %}{% url 'report_view' item.report_id %}{% endif %}"
+                                                    class="btn btn-primary btn-sm {% if item.report_id is None %}disabled{% endif %}">Открыть
+                                                    заказ-наряд</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+</main>
+<!--Main layout-->
+{% endblock content %}
