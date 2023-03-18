@@ -1,0 +1,136 @@
+:root {
+    --primary-1: #6cace4;
+    --primary-2: #025EA1;
+    --primary-3: #003274;
+    --background: #ECECE7;
+    --accent-1: #FFB001;
+    --accent-2: #F2E544;
+    --additional-1: #32CA7A;
+    --background-1: #333333;
+    --background-2: #acacac;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.error {
+    color: var(--accent-1);
+}
+
+.warning {
+    color: var(--background-2);
+}
+
+.success {
+    color: var(--additional-1);
+}
+
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+}
+
+.alert-success {
+    color: #000;
+    background-color: var(--additional-1);
+    border-color: var(--additional-1);
+}
+
+.alert-warning {
+    color: #000;
+    background-color: var(--background-2);
+    border-color: var(--background-2);
+}
+
+.alert-danger {
+    color: #000;
+    background-color: var(--accent-1);
+    border-color: var(--accent-1);
+}
+
+.list-group-item {
+    border: 0;
+}
+
+body {
+    background-color: #fbfbfb;
+}
+
+@media (min-width: 991.98px) {
+    main {
+        padding-left: 240px;
+    }
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 58px 0 0;
+    /* Height of navbar */
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+    width: 240px;
+    z-index: 600;
+}
+
+.sidebar .active {
+    border-radius: 5px;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+}
+
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: 0.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* Scrollable contents if viewport is shorter than content. */
+}
+
+
+.list-group-item.active {
+    background-color: var(--primary-1);
+    border-color: var(--primary-1);
+    color: #000;
+}
+
+.material-icons-outlined.md-18 {
+    font-size: 18px;
+}
+
+.material-icons-outlined.md-24 {
+    font-size: 24px;
+}
+
+.material-icons-outlined.md-36 {
+    font-size: 36px;
+}
+
+.material-icons-outlined.md-48 {
+    font-size: 48px;
+}
+
+.btn-primary {
+    background-color: var(--primary-1) !important;
+    outline: none !important;
+    color: #000;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-2) !important;
+    outline: none !important;
+}
+
+
+.btn-primary:active {
+    background-color: var(--primary-3) !important;
+    outline: none !important;
+}
+
+.bg-main {
+    background-color: var(--background);
+}

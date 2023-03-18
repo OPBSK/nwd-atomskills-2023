@@ -1,0 +1,62 @@
+{% extends 'memec/base.html' %}
+{% load static %}
+{% block customcss %}
+<link href="{% static 'css/main.css' %}" rel="stylesheet">
+{% endblock customcss %}
+
+{% block content %}
+<!--Main layout-->
+<main style="margin-top: 58px">
+    <div class="container pt-4">
+        <!-- Section: Main chart -->
+        <section class="mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive-sm">
+                        <table class="table
+                        table-hover	
+                        align-middle">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Сообщение</th>
+                                    <th class="text-center">Дата</th>
+                                    <th class="text-center"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                {% for alert in alerts %}
+                                <tr>
+                                    <td
+                                        class="text-center fw-bold {% if alert.type == 0 %}success{% endif %} {% if alert.type == 1 %}warning{% endif %} {% if alert.type == 2 %}error{% endif %}">
+                                        {% if alert.msg %}
+                                        {{alert.msg}}
+                                        {% else %}
+                                        Нет данных
+                                        {% endif %}
+                                    </td>
+                                    <td
+                                        class="text-center fw-bold {% if alert.type == 0 %}success{% endif %} {% if alert.type == 1 %}warning{% endif %} {% if alert.type == 2 %}error{% endif %}">
+                                        {% if alert.ts %}
+                                        {{alert.ts|date:'d.m.Y'}} {{alert.ts|time:'H:i' }}
+                                        {% else %}
+                                        Нет данных
+                                        {% endif %}
+                                    </td>
+                                    <td>
+
+                                        <a target=”_blank”
+                                            href="{% if alert.report_id is not None %}{% url 'report_view' alert.report_id %}{% endif %}"
+                                            class="btn btn-primary btn-sm {% if alert.report_id is None %} disabled
+                                            {% endif %}">Открыть</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+</main>
+<!--Main layout-->
+{% endblock content %}

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="{% static 'css/root.css' %}" rel="stylesheet">
+  <link href="{% static 'css/notify.css' %}" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+    rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+  {% block customcss%}{% endblock customcss %}
+  <title>AUMANU</title>
+</head>
+
+<body>
+  {% url 'signin' as signin %}
+  {% if request.path != signin %}{% include 'memec/navbar.html' %}{% endif %}
+  {% block content %}
+  {% endblock content %}
+  <div id="toast-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="{% static 'js/notify.js' %}"></script>
+<script>
+  $(document).ready(function () {
+    // set interval to execute AJAX call every 5 seconds
+    setInterval(function () {
+      $.ajax({
+        url: "{% url 'ajax_alerts' %}",
+        type: 'GET',
+        success: function (response) {
+          $.each(response, function (index) {
+            $('#toast-container').append(response[index].html);
+            //$('.alert').alert('close');
+          });
+          // update the my-data element with the response data
+          $('#alert-text').html(response);
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    }, 2000);
+  });
+</script>
+{% block customjs %}{% endblock customjs %}
+
+</html>

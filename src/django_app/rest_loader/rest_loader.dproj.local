@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-  <Transactions>
-    <Transaction>2023.03.16 14:59:30.681,C:\DIVISION\rest_loader\rest_loader.dproj=C:\Users\Akbaa\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
-    <Transaction>2023.03.16 14:59:51.938,=C:\DIVISION\rest_loader\Unit1.pas</Transaction>
-    <Transaction>2023.03.16 15:00:10.661,C:\DIVISION\rest_loader\unDM.pas=C:\DIVISION\rest_loader\Unit1.pas</Transaction>
-    <Transaction>2023.03.16 15:00:10.661,C:\DIVISION\rest_loader\unDM.dfm=C:\DIVISION\rest_loader\Unit1.dfm</Transaction>
-  </Transactions>
-</BorlandProject>

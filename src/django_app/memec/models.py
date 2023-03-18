@@ -6,10 +6,15 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.contrib.auth.models import User
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class AuthGroup(models.Model):
-    name = models.CharField(unique=True, max_length=150, db_collation='Cyrillic_General_CI_AS')
+    name = models.CharField(unique=True, max_length=150,
+                            db_collation='Cyrillic_General_CI_AS')
 
     class Meta:
         managed = False
@@ -28,9 +33,11 @@ class AuthGroupPermissions(models.Model):
 
 
 class AuthPermission(models.Model):
-    name = models.CharField(max_length=255, db_collation='Cyrillic_General_CI_AS')
+    name = models.CharField(
+        max_length=255, db_collation='Cyrillic_General_CI_AS')
     content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
-    codename = models.CharField(max_length=100, db_collation='Cyrillic_General_CI_AS')
+    codename = models.CharField(
+        max_length=100, db_collation='Cyrillic_General_CI_AS')
 
     class Meta:
         managed = False
@@ -39,13 +46,18 @@ class AuthPermission(models.Model):
 
 
 class AuthUser(models.Model):
-    password = models.CharField(max_length=128, db_collation='Cyrillic_General_CI_AS')
+    password = models.CharField(
+        max_length=128, db_collation='Cyrillic_General_CI_AS')
     last_login = models.DateTimeField(blank=True, null=True)
     is_superuser = models.BooleanField()
-    username = models.CharField(unique=True, max_length=150, db_collation='Cyrillic_General_CI_AS')
-    first_name = models.CharField(max_length=150, db_collation='Cyrillic_General_CI_AS')
-    last_name = models.CharField(max_length=150, db_collation='Cyrillic_General_CI_AS')
-    email = models.CharField(max_length=254, db_collation='Cyrillic_General_CI_AS')
+    username = models.CharField(
+        unique=True, max_length=150, db_collation='Cyrillic_General_CI_AS')
+    first_name = models.CharField(
+        max_length=150, db_collation='Cyrillic_General_CI_AS')
+    last_name = models.CharField(
+        max_length=150, db_collation='Cyrillic_General_CI_AS')
+    email = models.CharField(
+        max_length=254, db_collation='Cyrillic_General_CI_AS')
     is_staff = models.BooleanField()
     is_active = models.BooleanField()
     date_joined = models.DateTimeField()
@@ -53,6 +65,18 @@ class AuthUser(models.Model):
     class Meta:
         managed = False
         db_table = 'auth_user'
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    telegramm = models.CharField(
+        max_length=50, db_collation='Cyrillic_General_CI_AS')
+
+
+@receiver(post_save, sender=User)
+def create_custom_user(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
 
 
 class AuthUserGroups(models.Model):
@@ -77,13 +101,28 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
+class Contractor(models.Model):
+    id = models.IntegerField(primary_key=True)
+    inn = models.CharField(
+        max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    caption = models.CharField(
+        max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'contractor'
+
+
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
-    object_id = models.TextField(db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
-    object_repr = models.CharField(max_length=200, db_collation='Cyrillic_General_CI_AS')
+    object_id = models.TextField(
+        db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    object_repr = models.CharField(
+        max_length=200, db_collation='Cyrillic_General_CI_AS')
     action_flag = models.SmallIntegerField()
     change_message = models.TextField(db_collation='Cyrillic_General_CI_AS')
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    content_type = models.ForeignKey(
+        'DjangoContentType', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:
@@ -92,8 +131,10 @@ class DjangoAdminLog(models.Model):
 
 
 class DjangoContentType(models.Model):
-    app_label = models.CharField(max_length=100, db_collation='Cyrillic_General_CI_AS')
-    model = models.CharField(max_length=100, db_collation='Cyrillic_General_CI_AS')
+    app_label = models.CharField(
+        max_length=100, db_collation='Cyrillic_General_CI_AS')
+    model = models.CharField(
+        max_length=100, db_collation='Cyrillic_General_CI_AS')
 
     class Meta:
         managed = False
@@ -103,8 +144,10 @@ class DjangoContentType(models.Model):
 
 class DjangoMigrations(models.Model):
     id = models.BigAutoField(primary_key=True)
-    app = models.CharField(max_length=255, db_collation='Cyrillic_General_CI_AS')
-    name = models.CharField(max_length=255, db_collation='Cyrillic_General_CI_AS')
+    app = models.CharField(
+        max_length=255, db_collation='Cyrillic_General_CI_AS')
+    name = models.CharField(
+        max_length=255, db_collation='Cyrillic_General_CI_AS')
     applied = models.DateTimeField()
 
     class Meta:
@@ -113,7 +156,8 @@ class DjangoMigrations(models.Model):
 
 
 class DjangoSession(models.Model):
-    session_key = models.CharField(primary_key=True, max_length=40, db_collation='Cyrillic_General_CI_AS')
+    session_key = models.CharField(
+        primary_key=True, max_length=40, db_collation='Cyrillic_General_CI_AS')
     session_data = models.TextField(db_collation='Cyrillic_General_CI_AS')
     expire_date = models.DateTimeField()
 
@@ -122,13 +166,186 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
-class Reports(models.Model):
-    label = models.CharField(max_length=255, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
-    filepath = models.CharField(max_length=255, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
-    username = models.CharField(max_length=255, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
-    ts_create = models.DateTimeField(blank=True, null=True)
-    retrive_id = models.IntegerField(blank=True, null=True)
+class Items(models.Model):
+    id = models.IntegerField(primary_key=True)
+    request_id = models.IntegerField(blank=True, null=True)
+    description = models.CharField(
+        max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    contractor_id = models.IntegerField(blank=True, null=True)
+    state_id = models.CharField(
+        max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    # Field name made lowercase.
+    releasedate = models.DateTimeField(
+        db_column='releaseDate', blank=True, null=True)
+    product_id = models.IntegerField(blank=True, null=True)
+    quantity = models.IntegerField(blank=True, null=True)
+    # Field name made lowercase.
+    quantityexec = models.IntegerField(
+        db_column='quantityExec', blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'reports'
+        db_table = 'items'
+
+
+class Machines(models.Model):
+    label = models.CharField(
+        max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    type = models.CharField(
+        max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    port = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'machines'
+
+
+class Messages(models.Model):
+    msg = models.TextField(
+        db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    viewed = models.BooleanField(blank=True, null=True)
+    ts = models.DateTimeField(blank=True, null=True)
+    type = models.IntegerField(blank=True, null=True)
+    send = models.BooleanField(blank=True, null=True)
+    report_id = models.IntegerField(blank=True, null=True)
+    send_tg = models.BooleanField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'Messages'
+
+
+class MessagesView(models.Model):
+    id = models.AutoField(primary_key=True)
+    msg = models.TextField(blank=True, null=True)
+    viewed = models.BooleanField(blank=True, null=True)
+    ts = models.DateTimeField(blank=True, null=True)
+    type = models.IntegerField(blank=True, null=True)
+    send = models.BooleanField(blank=True, null=True)
+    report_id = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = '_messages'
+
+
+class Product(models.Model):
+    id = models.IntegerField(primary_key=True)
+    code = models.CharField(
+        max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    caption = models.CharField(
+        max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    # Field name made lowercase.
+    millingtime = models.IntegerField(
+        db_column='millingTime', blank=True, null=True)
+    # Field name made lowercase.
+    lathetime = models.IntegerField(
+        db_column='latheTime', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'product'
+
+
+class Reports(models.Model):
+    label = models.CharField(
+        max_length=255, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    title = models.CharField(
+        max_length=255, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    body = models.CharField(
+        max_length=255, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    description = models.TextField(
+        db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    user_name = models.CharField(
+        max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    html = models.TextField(
+        db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'Reports'
+
+
+class Request(models.Model):
+    id = models.IntegerField(primary_key=True)
+    number = models.CharField(
+        max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    date = models.DateTimeField(blank=True, null=True)
+    description = models.CharField(
+        max_length=1000, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    # Field name made lowercase.
+    releasedate = models.DateTimeField(
+        db_column='releaseDate', blank=True, null=True)
+    state = models.CharField(
+        max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    contractor_id = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'request'
+
+
+class Requests(models.Model):
+    request_id = models.IntegerField(primary_key=True)
+    number = models.CharField(max_length=50, blank=True, null=True)
+    date = models.DateTimeField(blank=True, null=True)
+    description = models.CharField(max_length=1000, blank=True, null=True)
+    # Field name made lowercase.
+    releasedate = models.DateTimeField(
+        db_column='releaseDate', blank=True, null=True)
+    state = models.CharField(max_length=50, blank=True, null=True)
+    state_caption = models.CharField(max_length=50, blank=True, null=True)
+    contractor_inn = models.CharField(max_length=50, blank=True, null=True)
+    contractor_caption = models.CharField(max_length=50, blank=True, null=True)
+    report_id = models.IntegerField(blank=True, null=True)
+    state_order = models.CharField(max_length=16)
+    state_order_int = models.IntegerField()
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = '_requests'
+
+
+class RequestItems(models.Model):
+    request_id = models.IntegerField(primary_key=True)
+    number = models.CharField(max_length=50, blank=True, null=True)
+    date = models.DateTimeField(blank=True, null=True)
+    description = models.CharField(max_length=1000, blank=True, null=True)
+    # Field name made lowercase.
+    releasedate = models.DateTimeField(
+        db_column='releaseDate', blank=True, null=True)
+    contractor_caption = models.CharField(max_length=50, blank=True, null=True)
+    quantity = models.IntegerField(blank=True, null=True)
+    product_code = models.CharField(max_length=50, blank=True, null=True)
+    product_caption = models.CharField(max_length=500, blank=True, null=True)
+    item_id = models.IntegerField(blank=True, null=True)
+    machines_list = models.CharField(max_length=8000, blank=True, null=True)
+    quantity_left_lathe = models.IntegerField(blank=True, null=True)
+    quantity_left_milling = models.IntegerField(blank=True, null=True)
+    state_order = models.CharField(max_length=16)
+    state_order_int = models.IntegerField()
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = '_request_items'
+
+
+class FreeMachines(models.Model):
+    label = models.CharField(max_length=50)
+    type = models.CharField(max_length=50, blank=True, null=True)
+    port = models.IntegerField(primary_key=True)
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = '_free_machines'
+
+
+class State(models.Model):
+    code = models.CharField(
+        max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+    caption = models.CharField(
+        max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'state'
