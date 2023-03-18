@@ -14,7 +14,7 @@ urlpatterns = [
          main.RequestView.as_view(), name="request_view"),
 
     path('reports/', reports.ReportListView.as_view(), name="reports"),
-    path('reports/<int:id>', reports.ReportView.as_view(), name="report_view"),
+    path('reports/view/', reports.ReportView.as_view(), name="report_view"),
 
     path('alerts/', alerts.AlertsListView.as_view(), name="alerts"),
     path('ajax/alerts', alerts.ajax_alerts, name="ajax_alerts"),

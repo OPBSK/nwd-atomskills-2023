@@ -43,15 +43,41 @@
                                         {% endif %}
                                     </td>
                                     <td>
-
-                                        <a target=”_blank”
-                                            href="{% if alert.report_id is not None %}{% url 'report_view' alert.report_id %}{% endif %}"
-                                            class="btn btn-primary btn-sm {% if alert.report_id is None %} disabled
-                                            {% endif %}">Открыть</a></td>
+                                        <form action="{% url 'report_view' %}" method="GET">
+                                            <input type="hidden" name="id" value="{{alert.report_id}}">
+                                            <input type="hidden" name="port" value="{{alert.port}}">
+                                            <button type="submit" class="btn btn-primary btn-sm"
+                                                {% if alert.report_id is None %} disabled {% endif %}
+                                                formtarget="_blank">
+                                                {% if alert.type == 2 %}
+                                                Заявка на ремонт
+                                                {% else %}
+                                                Открыть
+                                                {% endif %}
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
+                        <div class="pagination">
+                            <span class="step-links">
+                                {% if page_obj.has_previous %}
+                                <a href="?page=1">&laquo; Первый</a>
+                                <a href="?page={{ page_obj.previous_page_number }}">Назад</a>
+                                {% endif %}
+
+                                <span class="current">
+                                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                                </span>
+
+                                {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">Вперед</a>
+                                <a href="?page={{ page_obj.paginator.num_pages }}">Последний &raquo;</a>
+                                {% endif %}
+                            </span>
+                        </div>
                     </div>
 
                 </div>

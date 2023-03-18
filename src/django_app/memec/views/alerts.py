@@ -2,12 +2,17 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, ListView
 from django.urls import reverse_lazy
 from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
+from django.conf import settings
 
 from ..models import *
+from .utils import file
 
 
 class AlertsListView(LoginRequiredMixin, ListView):
     model = MessagesView
+    paginate_by = 10
     login_url = reverse_lazy('signin')
     context_object_name = 'alerts'
     queryset = model.objects.all().order_by('-ts')
