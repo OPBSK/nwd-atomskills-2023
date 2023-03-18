@@ -1,0 +1,1 @@
+mail_server.exe -db AS2033 -login django_user -password django_user -rest http://192.168.2.129:1040 -key qwerty -host HOME-PC\SQLEXPRESS -mail_login techlifeas@gmail.com -mail_password rhvzrvenmgkccdzb

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.287,C:\Development\projects\mail_service.dproj=C:\Development\projects\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.963,C:\Development\git\project9\mail_service\forms\uMain.dfm=C:\Development\projects\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.530,C:\Development\git\project9\mail_service\DM\uDM.pas=C:\Development\git\project9\mail_service\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.925,C:\Development\git\project9\mail_service\mail_service.dproj=C:\Development\projects\mail_service.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.963,C:\Development\git\project9\mail_service\forms\uMain.pas=C:\Development\projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.144,=C:\Development\git\project9\mail_service\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.414,C:\Development\git\project9\mail_service\mail_server.dproj=C:\Development\git\project9\mail_service\mail_service.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.530,C:\Development\git\project9\mail_service\DM\uDM.dfm=C:\Development\git\project9\mail_service\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.659,=C:\Development\projects\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -22,23 +22,25 @@ from ..models import *
 class MainListView(LoginRequiredMixin, ListView):
     template_name = "memec/main.html"
     model = Requests
+    paginate_by = 10
     context_object_name = 'requests'
     login_url = reverse_lazy('signin')
 
     def get_queryset(self):
         state = self.request.GET.get('state', 'new')
         if state == 'new':
-            return self.model.objects.filter(state='DRAFT')
+            return self.model.objects.filter(state='DRAFT').order_by('-date')
         if state == 'production':
-            return self.model.objects.filter(state='IN_PRODUCTION')
+            return self.model.objects.filter(state='IN_PRODUCTION').order_by('-date')
         if state == 'executed':
-            return self.model.objects.filter(state='EXECUTED')
-        return self.model.objects.filter(state='DRAFT')
+            return self.model.objects.filter(state='EXECUTED').order_by('-date')
+        return self.model.objects.filter(state='DRAFT').order_by('-date')
 
 
 class RequestView(LoginRequiredMixin, ListView):
     template_name = "memec/request_view.html"
     model = RequestItems
+    paginate_by = 10
     context_object_name = 'requestitems'
     login_url = reverse_lazy('signin')
 
@@ -87,7 +89,6 @@ def RequestApprove(request):
             'tools').joinpath('rest_sender.exe')
         file.run_executable(
             executable_path, f'-param1 {request_id} -mode approve')
-        # rest_sender.exe -param1 request_id
     return redirect(next)
 
 
