@@ -73,6 +73,32 @@ begin
   end;
 end;
 
+function send_put(_resource_path: String): Integer;
+begin
+  // делает POST
+  // может не оказаться ресурса
+  // может не оказаться такой процедуры на SQL
+
+  // получаем
+  try
+    with fmDM do
+    begin
+      // обычный пор
+
+      RESTClient1.BaseURL := rest_server + ':' + rest_port;
+      RESTRequest1.Method := rmPUT;
+      RESTRequest1.Resource := _resource_path;
+      RESTRequest1.ClearBody;
+      RESTRequest1.Execute;
+
+    end;
+  except
+    on E: Exception do
+      writeln('send_post: ', E.ClassName, ': ', E.Message);
+
+  end;
+end;
+
 function get_machine_status_send_to_db(_port: String; _proc_path: String): Integer;
 begin
   // может не оказаться ресурса
@@ -101,9 +127,9 @@ begin
         result := Query.FieldByName('result').Value;
       end
       else
-      //если станок был сломан, то возвращает 1
+      // если станок был сломан, то возвращает 1
       begin
-        if pos('BROKEN', RESTResponse1.JSONText) >-1 then
+        if pos('BROKEN', RESTResponse1.JSONText) > -1 then
           result := 1
         else
           result := 0;
@@ -348,6 +374,27 @@ begin
           end;
 
         end;
+
+        if app_mode = 'release' then
+        begin
+          // сдача готовой продукции
+          // вызываем процедуру , которая проставит количество у нас
+          fmDM.Query.Close;
+          fmDM.Query.sql.Text := 'exec _set_release_production ' + app_param1 + ',' + app_param2 + ',' +
+            app_param3;
+          fmDM.Query.Open;
+
+          while not fmDM.Query.Eof do
+          begin
+            send_post_with_body('set/waiting', fmDM.Query.FieldByName('port').asstring, '');
+            fmDM.Query.Next;
+          end;
+          // и вызовет рест
+          send_put('crm/requests/' + app_param1 + '/items/' + app_param2 + '/add-execution-qty/' +
+            app_param3);
+
+        end;
+
         if app_mode = 'repair' then
         begin
           if get_machine_status_send_to_db(app_param1, '') = 1 then
