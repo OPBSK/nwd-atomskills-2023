@@ -1,0 +1,1 @@
+rest_sender.exe -mode load
