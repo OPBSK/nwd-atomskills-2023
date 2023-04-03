@@ -6,7 +6,7 @@ import time
 from ...models import *
 
 # Объявление переменной бота
-bot = TeleBot('5555569079:AAFFYpBjuGlLGC9JC42BwJ6EX6Uz7tosOK8', threaded=True)
+bot = TeleBot('', threaded=True)
 chat_id = 0
 
 
